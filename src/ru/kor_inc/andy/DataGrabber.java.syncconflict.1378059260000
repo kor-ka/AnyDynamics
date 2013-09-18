@@ -1,0 +1,125 @@
+package ru.kor_inc.andy;
+
+//check
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+import ru.kor_inc.andy.afreechart_sample.src.org.afree.chart.demo.activity.PieChartDemo01Activity;
+
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public class DataGrabber extends Activity implements OnClickListener{
+EditText dateField;
+EditText timeField;
+EditText numericField;
+EditText textField;
+Button btnSave;
+Button buttonSpinner;
+DbTool dbWr = new DbTool();
+boolean isItStartedFirstTime = true;
+private static final String TAG = "kor_ka Log";
+
+@Override
+protected void onStart(){
+	super.onStart();
+	if(isItStartedFirstTime){
+		
+		Log.d(TAG, "888    d8P  .d88888b. 8888888b.         888    d8P        d8888 ");
+		Log.d(TAG, "888   d8P  d88P' 'Y88b888   Y88b        888   d8P        d88888 ");
+		Log.d(TAG, "888  d8P   888     888888    888        888  d8P        d88P888 ");
+		Log.d(TAG, "888d88K    888     888888   d88P        888d88K        d88P 888 ");
+		Log.d(TAG, "8888888b   888     8888888888P'  888888 8888888b      d88P  888 ");
+		Log.d(TAG, "888  Y88b  888     888888 T88b          888  Y88b    d88P   888 ");
+		Log.d(TAG, "888   Y88b Y88b. .d88P888  T88b         888   Y88b  d8888888888 ");
+		Log.d(TAG, "888    Y88b 'Y88888P' 888   T88b        888    Y88bd88P     888 ");
+		isItStartedFirstTime = false;
+	}
+
+}
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_data_grabber);
+		
+		dateField = (EditText) findViewById(R.id.dateField);
+		timeField = (EditText) findViewById(R.id.timeField);
+		numericField = (EditText) findViewById(R.id.numericField);
+		textField = (EditText) findViewById(R.id.textField);
+		btnSave = (Button) findViewById(R.id.btnSave);
+		buttonSpinner = (Button) findViewById(R.id.buttonSpinner);
+		
+		btnSave.setOnClickListener(this);
+		buttonSpinner.setOnClickListener(this);
+		
+		SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
+		String time = stf.format(new Date(System.currentTimeMillis()));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+	    String date = sdf.format(new Date(System.currentTimeMillis()));
+		
+	    dateField.setText(date);
+	    timeField.setText(time);
+	    
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(0,2,2,"Box");
+		menu.add(0,3,3,"Chart");
+		return true;
+	}
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch (item.getItemId()){
+			
+			case 2:
+				Intent intent = new Intent(this, Box.class);
+				this.startActivity(intent);
+			break;
+			case 3:
+				Intent intentChart = new Intent(this, PieChartDemo01Activity.class);
+				this.startActivity(intentChart);
+			break;
+		}
+		return true;
+	}
+	@Override
+	public void onClick(View v) {
+		switch (v.getId())
+		{
+			case R.id.btnSave:
+				dbWr.WriteToSql(timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString(), this);
+				dbWr.DataToLog(timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString());
+				timeField.setText("");
+				dateField.setText("");
+				numericField.setText("");
+				textField.setText("");
+				Toast.makeText(this, "Saved!", Toast.LENGTH_LONG).show();
+				this.onCreate(null);
+			break;
+			
+			case R.id.buttonSpinner:
+				Intent intent = new Intent(this, SpinnerActivity.class);
+				this.startActivityForResult(intent, 1);
+			break;
+		}
+	}
+	 @Override
+	  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	if (data == null) {return;}
+	    String text = data.getStringExtra("text");
+	    textField.setText(text);
+	  }
+}
