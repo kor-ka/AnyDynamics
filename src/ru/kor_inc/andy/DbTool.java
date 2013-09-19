@@ -179,7 +179,7 @@ public class DbTool{
       if(aDate==null) return null;
       ParsePosition pos = new ParsePosition(0);
       SimpleDateFormat simpledateformat = new SimpleDateFormat(aFormat);
-      Date stringDate = simpledateformat.parse(aDate, pos);
+      Date stringDate = (Date) simpledateformat.parse(aDate, pos);
       return stringDate;            
 
    }
