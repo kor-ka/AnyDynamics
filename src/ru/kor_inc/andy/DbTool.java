@@ -117,7 +117,7 @@ public class DbTool{
       	Date d = new Date(System.currentTimeMillis());
       	Date dateFrom = d.vauleOf("01-01-2013");
       	Date dateTo = d.valueOf("31-12-2013");
-      	cvDateFix = new ContentValues();
+      	
       	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
       	do {
 			String dateFix = sdf.format(dateFrom);
