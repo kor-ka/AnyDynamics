@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import java.sql.*;
+import android.util.*;
  
  
 public class DbTool{
@@ -112,11 +114,13 @@ public class DbTool{
         //TODO get dateFrom and dateTo from calling activity (from it's filter)
         db.delete("dateFix",null,null);
         cvDateFix = new ContentValues();
-      	Date d=new Date(System.currentTimeMillis());
-      	dateFrom = d.vauleOf("01-01-2013");
-      	dateTo = d.valueOf("31-12-2013");
+      	Date d = new Date(System.currentTimeMillis());
+      	Date dateFrom = d.vauleOf("01-01-2013");
+      	Date dateTo = d.valueOf("31-12-2013");
+      	cvDateFix = new ContentValues();
+      	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
       	do {
-     		String dateFix = sdf.format(dateFrom);
+			String dateFix = sdf.format(dateFrom);
      		cvDateFix.put("date",dateFix);
      		cvDateFix.put("numeric", 0);
      		db.insert("dateFix", null, cvDateFix);
