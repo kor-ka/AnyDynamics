@@ -116,7 +116,7 @@ public class DbTool{
         db.delete("dateFix",null,null);
         ContentValues cvDateFix = new ContentValues();
       	Date d = new Date(System.currentTimeMillis());
-      	Date dateFrom = d.vauleOf("01-01-2013");
+      	Date dateFrom = d.valueOf("01-01-2013");
       	Date dateTo = d.valueOf("31-12-2013");
       	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
       	do {
