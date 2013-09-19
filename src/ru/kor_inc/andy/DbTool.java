@@ -86,7 +86,7 @@ public class DbTool{
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query(currentTable, null, null, null, null, null, null); 
-        db.close();
+        
         return c;
     }
      
@@ -95,7 +95,7 @@ public class DbTool{
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query(currentTable, null, "date BETWEEN ? AND ?", new String[] {
                                 dateFrom, dateTo }, null, null, null);     
-        db.close();
+        
         return c;
     }
      
@@ -103,7 +103,7 @@ public class DbTool{
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query(currentTable, null, null, null, groupBy, null, null);
-        db.close();
+        
         return c;
          
     }
@@ -128,7 +128,7 @@ public class DbTool{
       	} while(dateFrom.getDate() < dateTo.getDate());
      	
         Cursor c = db.query(currentTable + " INNER JOIN dateFix ON " +currentTable+".date=dateFix.date "+currentTable+".numeric=daFix.numeric" , new String[] {groupBy, "sum("+columnToSum+") as "+columnToSum }, null, null, groupBy, null, columnToSum+" DESC");
-     	db.close();
+     	
         return c;
          
     }
