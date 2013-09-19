@@ -93,7 +93,25 @@ public class DbTool{
     public Cursor getCursorFilterByDate(String currentTable,Context context, String dateFrom, String dateTo){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.query(currentTable, null, "date BETWEEN ? AND ?", new String[] {
+        
+        //fix dates (add "zero" dates)
+        //TODO get dateFrom and dateTo from calling activity (from it's filter)
+        db.delete("dateFix",null,null);
+        ContentValues cvDateFix = new ContentValues();
+      	Date d = new Date(System.currentTimeMillis());
+      	Date dateFixFrom = stringToDate("01-01-2013", "dd-MM-yyyy");
+      	Date dateFixTo = stringToDate("31-12-2013", "dd-MM-yyyy");
+      	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+      	do {
+		String dateFix = sdf.format(dateFixFrom);
+     		cvDateFix.put("date",dateFix);
+     		cvDateFix.put("numeric", "0");
+     		db.insert("dateFix", null, cvDateFix);
+     		dateFixFrom.setDate(dateFixFrom.getDate()+1);
+      	} while(dateFixFrom.getDate() < dateFixTo.getDate());
+     	
+        
+        Cursor c = db.query(currentTable  + " ,dateFix WHERE " +currentTable+".date=dateFix.date AND "+currentTable+".numeric=dataFix.numeric" , null, "date BETWEEN ? AND ?", new String[] {
                                 dateFrom, dateTo }, null, null, null);     
         
         return c;
@@ -111,23 +129,8 @@ public class DbTool{
     public Cursor getCursorWithGroupByAndSum(String currentTable, Context context, String groupBy, String columnToSum) {
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        //fix dates (add "zero" dates)
-        //TODO get dateFrom and dateTo from calling activity (from it's filter)
-        db.delete("dateFix",null,null);
-        ContentValues cvDateFix = new ContentValues();
-      	Date d = new Date(System.currentTimeMillis());
-      	Date dateFrom = stringToDate("01-01-2013", "dd-MM-yyyy");
-      	Date dateTo = stringToDate("31-12-2013", "dd-MM-yyyy");
-      	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-      	do {
-		String dateFix = sdf.format(dateFrom);
-     		cvDateFix.put("date",dateFix);
-     		cvDateFix.put("numeric", "0");
-     		db.insert("dateFix", null, cvDateFix);
-     		dateFrom.setDate(dateFrom.getDate()+1);
-      	} while(dateFrom.getDate() < dateTo.getDate());
-     	
-        Cursor c = db.query(currentTable + " ,dateFix WHERE " +currentTable+".date=dateFix.date AND "+currentTable+".numeric=dataFix.numeric" , new String[] {groupBy, "sum("+columnToSum+") as "+columnToSum }, null, null, groupBy, null, columnToSum+" DESC");
+
+        Cursor c = db.query(currentTable, new String[] {groupBy, "sum("+columnToSum+") as "+columnToSum }, null, null, groupBy, null, columnToSum+" DESC");
      	
         return c;
          
