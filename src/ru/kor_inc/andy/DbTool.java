@@ -122,12 +122,12 @@ public class DbTool{
       	do {
 		String dateFix = sdf.format(dateFrom);
      		cvDateFix.put("date",dateFix);
-     		cvDateFix.put("numeric", 0);
+     		cvDateFix.put("numeric", "0");
      		db.insert("dateFix", null, cvDateFix);
      		dateFrom.setDate(dateFrom.getDate()+1);
       	} while(dateFrom.getDate() < dateTo.getDate());
      	
-        Cursor c = db.query(currentTable + " INNER JOIN dateFix ON " +currentTable+".date=dateFix.date "+currentTable+".numeric=daFix.numeric" , new String[] {groupBy, "sum("+columnToSum+") as "+columnToSum }, null, null, groupBy, null, columnToSum+" DESC");
+        Cursor c = db.query(currentTable + " INNER JOIN dateFix ON " +currentTable+".date=dateFix.date "+currentTable+".numeric=dataFix.numeric" , new String[] {groupBy, "sum("+columnToSum+") as "+columnToSum }, null, null, groupBy, null, columnToSum+" DESC");
      	
         return c;
          
