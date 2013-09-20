@@ -6,4 +6,8 @@
           android:icon="@drawable/chart"
           android:title="Chart"
           android:showAsAction="ifRoom"/>
+	<item android:id="@+id/filter"
+		android:icon="@drawable/filter"
+		android:title="Filter"
+		android:showAsAction="ifRoom"/>
 </menu>

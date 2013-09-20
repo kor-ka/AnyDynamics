@@ -122,6 +122,11 @@ DbTool db = new DbTool();
 				intentChart.putExtra("currentTable", currentTable);
 				this.startActivity(intentChart);
 			break;
+			case R.id.filter:
+				Intent intentFilter = new Intent(this, ChartActivity.class);
+				intentFilter.putExtra("currentTable", currentTable);
+				this.startActivity(intentFilter);
+			break;
 		}
 		return true;
 	}
