@@ -39,7 +39,7 @@ public final class R {
         public static final int bntChartLabel4=0x7f080011;
         public static final int bntChartLabel5=0x7f080014;
         public static final int bntChartLabelOther=0x7f080017;
-        public static final int boxlist=0x7f08002d;
+        public static final int boxlist=0x7f08002e;
         public static final int brik1=0x7f080001;
         public static final int brik2=0x7f080002;
         public static final int brik3=0x7f080003;
@@ -57,6 +57,7 @@ public final class R {
         public static final int dataLayoutTime=0x7f080026;
         public static final int dateField=0x7f08001e;
         public static final int drawer_layout=0x7f08001c;
+        public static final int filter=0x7f08002d;
         public static final int left_drawer=0x7f080023;
         public static final int lineSiriesLl=0x7f080019;
         public static final int listViewBox=0x7f08001b;
