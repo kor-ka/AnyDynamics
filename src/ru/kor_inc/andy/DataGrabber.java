@@ -86,7 +86,7 @@ protected void onStart(){
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		Date d=new Date(System.currentTimeMillis());
-		d.setDate(d.getDate()+1);
+		//d.setDate(d.getDate()+1);
 	    String date = sdf.format(d);
 		timeField.setSaveEnabled(false);
 	    dateField.setText(date);
