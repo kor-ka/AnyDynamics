@@ -17,7 +17,7 @@ public class DbTool{
  
  DBHelper dbHelper;
  ContentValues cv;
- final int DB_VERSION = 2;
+ final int DB_VERSION = 1;
   
   
     public void DataToLog(String time, String date, String numeric, String telo){
@@ -25,7 +25,7 @@ public class DbTool{
         Log.d(TAG, time+" | "+ date +" | "+numeric+" | "+ telo);
     }
   
-    public void WriteToSql(String currentTable, String time, String date, String numeric, String telo, Context context){
+    public void WriteToSql(String currentTable, String time, String date, String numeric, String telo, String comment, String nalich, String prihRash, String chId, Context context){
      dbHelper = new DBHelper(context);
      SQLiteDatabase db = dbHelper.getWritableDatabase();
      cv = new ContentValues();
@@ -34,6 +34,10 @@ public class DbTool{
      cv.put("date",date);
      cv.put("numeric",numeric);
      cv.put("telo",telo);
+	 cv.put("nalich", nalich);
+	 cv.put("prihrash", prihRash);
+	 cv.put("comment", comment);
+	 cv.put("chId", chId);
       
      db.insert(currentTable, null, cv);
      db.close();
@@ -163,8 +167,8 @@ public class DbTool{
         public void onCreate(SQLiteDatabase db){
         Log.d(TAG, "--- onCreate database ---");
         // создаем таблицу с полями 
-        db.execSQL("create table firstAnyDynamicDataTable (" + "_id integer primary key autoincrement," + "time text," + "date date," + "numeric text," + "telo text" + ");");
-        db.execSQL("create table secondAnyDynamicDataTable (" + "_id integer primary key autoincrement," + "time text," + "date date," + "numeric text," + "telo text" + ");");              
+			db.execSQL("create table firstAnyDynamicDataTable (" + "_id integer primary key autoincrement," + "time text," + "date date," + "numeric text," + "telo text," +"nalich text,"+"prihrash text,"+"comment text,"+ "chId text"+");");
+			db.execSQL("create table secondAnyDynamicDataTable (" + "_id integer primary key autoincrement," + "time text," + "date date," + "numeric text," + "telo text," +"nalich text,"+"prihrash text,"+"comment text,"+"chId text" + ");");              
         db.execSQL("create table dateFix (" + "date date," + "numeric text" + ");");                 
  
         }

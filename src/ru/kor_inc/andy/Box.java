@@ -41,8 +41,8 @@ DbTool db = new DbTool();
 		
 		registerForContextMenu(listViewBox);
 		
-		String[] from = new String[] { "date", "time", "numeric", "telo" };
-	    int[] to = new int[] { R.id.dataLayoutDate, R.id.dataLayoutTime, R.id.dataLayoutNumeric, R.id.dataLayoutTelo };
+		String[] from = new String[] { "date", "time", "numeric", "telo", "chId" };
+	    int[] to = new int[] { R.id.dataLayoutDate, R.id.dataLayoutTime, R.id.dataLayoutNumeric, R.id.dataLayoutTelo, R.id.dataLayoutChid };
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	

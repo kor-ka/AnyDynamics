@@ -23,9 +23,13 @@ import android.content.SharedPreferences.Editor;
 public class DataGrabber extends Activity implements OnClickListener{
 EditText dateField;
 EditText timeField;
+EditText chId;
 EditText numericField;
 EditText textField;
+EditText comment;
+ToggleButton nalich;
 Button btnSave;
+Button btnSave2;
 Button buttonSpinner;
 DbTool dbWr = new DbTool();
 boolean isItStartedFirstTime = true;
@@ -35,8 +39,12 @@ private ListView mDrawerList;
 private ActionBarDrawerToggle mDrawerToggle;
 private String[] tables;
 SharedPreferences prefCurrentTable;
+SharedPreferences prefChid;
 String currentTable;
 String tabelLabel;
+Editor edChid;
+int currentChid;
+int nextChid;
 
 @Override
 protected void onStart(){
@@ -58,29 +66,40 @@ protected void onStart(){
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		prefCurrentTable = getPreferences(MODE_PRIVATE);
-		Editor ed=prefCurrentTable.edit();
-		ed.putString("firstAnyDynamicDataTable", "AnyDynamics|Расход");
-		ed.putString("secondAnyDynamicDataTable", "AnyDynamics|Приход");
-		ed.commit();
+		prefChid = getPreferences(MODE_PRIVATE);
+		Editor edCt=prefCurrentTable.edit();
+		edCt.putString("firstAnyDynamicDataTable", "AnyDynamics|Расход");
+		edCt.putString("secondAnyDynamicDataTable", "AnyDynamics|Приход");
+		edCt.commit();
+		
+		
 		currentTable = prefCurrentTable.getString("currentTable","firstAnyDynamicDataTable");
 		
 		getActionBar().setTitle(prefCurrentTable.getString(currentTable, ""));
+		
+		edChid = prefChid.edit();
+		currentChid =prefChid.getInt("currentChid",0);
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_data_grabber);
 		
 		dateField = (EditText) findViewById(R.id.dateField);
 		timeField = (EditText) findViewById(R.id.timeField);
+		chId = (EditText) findViewById(R.id.chId);
+		comment = (EditText) findViewById(R.id.comment);
 		numericField = (EditText) findViewById(R.id.numericField);
 		textField = (EditText) findViewById(R.id.textField);
 		btnSave = (Button) findViewById(R.id.btnSave);
+		btnSave2 = (Button) findViewById(R.id.btnSave2);
 		buttonSpinner = (Button) findViewById(R.id.buttonSpinner);
+		nalich = (ToggleButton) findViewById(R.id.nalich);
 		
 		btnSave.setOnClickListener(this);
+		btnSave2.setOnClickListener(this);
 		buttonSpinner.setOnClickListener(this);
 		
 		btnSave.getBackground().setColorFilter(0xff66cc66 ,PorterDuff.Mode.MULTIPLY);
-		
+		btnSave2.getBackground().setColorFilter(Color.RED ,PorterDuff.Mode.MULTIPLY);
 		SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
 		String time = stf.format(new Date(System.currentTimeMillis()));
 		
@@ -91,6 +110,9 @@ protected void onStart(){
 		timeField.setSaveEnabled(false);
 	    dateField.setText(date);
 	    timeField.setText(time);
+	
+		nextChid = currentChid+1;
+		chId.setText(""+nextChid);
 		
 		//drower...
 		tables = new String[]{"Расход","Приход"};
@@ -223,7 +245,7 @@ protected void onStart(){
 		switch (v.getId())
 		{
 			case R.id.btnSave:
-				dbWr.WriteToSql(currentTable,timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString(), this);
+				dbWr.WriteToSql(currentTable,timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString(), comment.getText().toString(), nalich.getText().toString(), "приход", chId.getText().toString(),this);
 				dbWr.DataToLog(timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString());
 				
 				Toast.makeText(this, "Saved!", Toast.LENGTH_LONG).show();
@@ -237,7 +259,33 @@ protected void onStart(){
 			    timeField.setText(time);
 			    numericField.setText("");
 				textField.setText("");
+				edChid.putInt("currentChid", nextChid);
+				edChid.commit();
+				nextChid= nextChid+1;
+				chId.setText(""+nextChid);
 			break;
+			
+			case R.id.btnSave2:
+				dbWr.WriteToSql(currentTable,timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString(), comment.getText().toString(), nalich.getText().toString(), "расход", chId.getText().toString(),this);
+				dbWr.DataToLog(timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString());
+
+				Toast.makeText(this, "Saved!", Toast.LENGTH_LONG).show();
+				SimpleDateFormat stf2 = new SimpleDateFormat("HH:mm:ss");
+				String time2 = stf2.format(new Date(System.currentTimeMillis()));
+
+				SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+			    String date2 = sdf2.format(new Date(System.currentTimeMillis()));
+
+			    dateField.setText(date2);
+			    timeField.setText(time2);
+			    numericField.setText("");
+				textField.setText("");
+				edChid.putInt("currentChid", nextChid);
+				edChid.commit();
+				nextChid= nextChid+1;
+				chId.setText(""+nextChid);
+				break;
+				
 			
 			case R.id.buttonSpinner:
 				Intent intent = new Intent(this, SpinnerActivity.class);
