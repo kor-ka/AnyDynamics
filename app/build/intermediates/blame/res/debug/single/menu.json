@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/build/intermediates/res/merged/debug/menu/chartmenu.xml",
+        "source": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/src/main/res/menu/chartmenu.xml"
+    },
+    {
+        "merged": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/build/intermediates/res/merged/debug/menu/datagrabbermenu.xml",
+        "source": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/src/main/res/menu/datagrabbermenu.xml"
+    },
+    {
+        "merged": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/build/intermediates/res/merged/debug/menu/main.xml",
+        "source": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/src/main/res/menu/main.xml"
+    },
+    {
+        "merged": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/build/intermediates/res/merged/debug/menu/boxmenu.xml",
+        "source": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/src/main/res/menu/boxmenu.xml"
+    },
+    {
+        "merged": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/build/intermediates/res/merged/debug/menu/activity_chart.xml",
+        "source": "/Users/gputintsev/Documents/test_apps/AnyDynamics/app/src/main/res/menu/activity_chart.xml"
+    }
+]

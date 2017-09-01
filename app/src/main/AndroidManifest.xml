@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.kor_inc.andytwo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.MyAppTheme" >
+        <activity
+            android:name="ru.kor_inc.andy.DataGrabber"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ru.kor_inc.andy.Box"
+            android:label="AnDy Box"
+            android:parentActivityName="ru.kor_inc.andy.DataGrabber"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="ru.kor_inc.andy.DataEdit"
+            android:label="dataedit"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" >
+        </activity>
+        <activity
+            android:name="ru.kor_inc.andy.SpinnerActivity"
+            android:label="spinner"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" >
+        </activity>
+        <activity
+            android:name="ru.kor_inc.andy.afreechart_sample.src.org.afree.chart.demo.activity.PieChartDemo01Activity"
+            android:label="AnDy Chart"
+            android:parentActivityName="ru.kor_inc.andy.DataGrabber"
+            android:launchMode="singleTask" >
+        </activity>
+		<activity
+            android:name="ru.kor_inc.andy.ChartActivity"
+            android:label="AnDy Chart"
+            android:parentActivityName="ru.kor_inc.andy.DataGrabber"
+            android:launchMode="singleTask" >
+        </activity>
+        
+    </application>
+
+</manifest>

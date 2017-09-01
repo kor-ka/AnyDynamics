@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".DataGrabber" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/timeField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:editable="false"
+            android:ems="10"
+            android:enabled="true"
+            android:hint="Time here"
+            android:inputType="none"
+            android:singleLine="true"
+             />
+
+        <EditText
+            android:id="@+id/dateField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:editable="false"
+            android:ems="10"
+            android:freezesText="true"
+            android:hint="Date here"
+            android:inputType="none"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/numericField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Цифровое значание"
+        android:inputType="numberSigned"
+        android:singleLine="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <EditText
+            android:id="@+id/textField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/buttonSpinner"
+            android:ems="10"
+            android:hint="Тело записи"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textField"
+            android:layout_alignParentLeft="true"
+            android:text="" 
+			android:drawableRight="@drawable/navigation_accept"
+			android:layout_marginTop="5dp"
+			
+			/>
+
+        <Button
+            android:id="@+id/buttonSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textField"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:drawableLeft="@drawable/collections_labels"
+            android:minWidth="0dp" />
+
+    </RelativeLayout>
+
+ </LinearLayout>

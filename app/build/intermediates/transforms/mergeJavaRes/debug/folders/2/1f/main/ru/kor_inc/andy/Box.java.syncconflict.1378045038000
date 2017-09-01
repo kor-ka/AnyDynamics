@@ -1,0 +1,99 @@
+package ru.kor_inc.andy;
+
+
+
+
+import android.app.*;
+import android.content.*;
+import android.database.*;
+import android.os.*;
+import android.support.v4.app.*;
+import android.view.*;
+import android.view.ContextMenu.*;
+import android.widget.*;
+import android.widget.AdapterView.*;
+
+public class Box extends Activity{
+DbTool db = new DbTool();
+
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_box);
+		Cursor c = db.getCursor(this);
+		startManagingCursor(c);
+		
+		ListView listViewBox = (ListView) findViewById(R.id.listViewBox);
+		
+		registerForContextMenu(listViewBox);
+		
+		String[] from = new String[] { "date", "time", "numeric", "telo" };
+	    int[] to = new int[] { R.id.dataLayoutDate, R.id.dataLayoutTime, R.id.dataLayoutNumeric, R.id.dataLayoutTelo };
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+	
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.datalayout, c, from, to);
+		listViewBox.setAdapter(adapter);
+		
+		final Context ctx = this;
+		
+		listViewBox.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+				Intent intent = new Intent(ctx, DataEdit.class);
+				intent.putExtra("position", position);
+				startActivityForResult(intent, 1);
+			}
+		});
+	
+
+	}
+	
+	protected void onActivityResult(int rc, int reqv, Intent intent){
+		this.onCreate(null);	
+	}
+	
+	public void onCreateContextMenu(ContextMenu menu, View v,
+		      ContextMenuInfo menuInfo) {
+		    super.onCreateContextMenu(menu, v, menuInfo);
+		    menu.add(0, 1, 0, "Удалить");
+		  }
+	
+	public boolean onContextItemSelected(MenuItem item) {
+		Cursor c = db.getCursor(this);
+	    if (item.getItemId() == 1) {
+	      // получаем из пункта контекстного меню данные по пункту списка 
+	      AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) item.getMenuInfo();
+	      // извлекаем id записи и удаляем соответствующую запись в БД
+	      db.delRec(acmi.id,this);
+	      // обновляем курсор
+	      c.requery();
+	      //Обновляем activity после удаления элемента
+	      this.onCreate(null);
+	      return true;
+	    }
+	    return super.onContextItemSelected(item);
+	  }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		menu.add(0,1,1,"Удалить все к хренам");
+		
+		return true;
+	}
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch (item.getItemId()){
+			case 1:
+				db.clear(this);
+				this.onCreate(null);
+				Toast.makeText(this, "Ты убил их! Изверг!", Toast.LENGTH_SHORT).show();
+			break;
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+			break;
+		}
+		return true;
+	}
+
+}
