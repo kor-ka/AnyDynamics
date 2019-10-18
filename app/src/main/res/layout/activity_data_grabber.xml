@@ -111,6 +111,32 @@
 
 		</RelativeLayout>
 
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<EditText
+				android:id="@+id/schetField"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_toLeftOf="@+id/schetSpinner"
+				android:ems="10"
+				android:hint="Счет"
+				android:inputType="textMultiLine"/>
+
+			<Button
+				android:id="@+id/schetSpinner"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignBottom="@+id/schetField"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentTop="true"
+				android:drawableLeft="@drawable/collections_labels"
+				android:minWidth="0dp"/>
+
+		</RelativeLayout>
+
 		<LinearLayout
 			android:layout_height="fill_parent"
 			android:layout_width="match_parent"

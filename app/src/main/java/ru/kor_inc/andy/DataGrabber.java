@@ -29,6 +29,7 @@ EditText chId;
 EditText numericField;
 EditText textField;
 EditText comment;
+EditText schet;
 ToggleButton nalich;
 Button btnSave;
 Button btnSave2;
@@ -95,7 +96,8 @@ protected void onStart(){
 		btnSave2 = (Button) findViewById(R.id.btnSave2);
 		buttonSpinner = (Button) findViewById(R.id.buttonSpinner);
 		nalich = (ToggleButton) findViewById(R.id.nalich);
-		
+		schet = (EditText) findViewById(R.id.schetField);
+
 		btnSave.setOnClickListener(this);
 		btnSave2.setOnClickListener(this);
 		buttonSpinner.setOnClickListener(this);
@@ -131,14 +133,12 @@ protected void onStart(){
 
 	    // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			getActionBar().setHomeButtonEnabled(true);
+		}
 
-		
-		
-		
-        
-		
-        // ActionBarDrawerToggle ties together the the proper interactions
+
+		// ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         mDrawerToggle = new ActionBarDrawerToggle(
 			this,                  /* host Activity */
@@ -247,7 +247,7 @@ protected void onStart(){
 		switch (v.getId())
 		{
 			case R.id.btnSave:
-				dbWr.WriteToSql(currentTable,timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString(), comment.getText().toString(), nalich.getText().toString(), "приход", chId.getText().toString(),this);
+				dbWr.WriteToSql(currentTable,timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString(), comment.getText().toString(), nalich.getText().toString(), "приход", chId.getText().toString(), schet.getText().toString(),this);
 				dbWr.DataToLog(timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString());
 				
 				Toast.makeText(this, "Saved!", Toast.LENGTH_LONG).show();
@@ -268,7 +268,7 @@ protected void onStart(){
 			break;
 			
 			case R.id.btnSave2:
-				dbWr.WriteToSql(currentTable,timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString(), comment.getText().toString(), nalich.getText().toString(), "расход", chId.getText().toString(),this);
+				dbWr.WriteToSql(currentTable,timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString(), comment.getText().toString(), nalich.getText().toString(), "расход", chId.getText().toString(), schet.getText().toString(),this);
 				dbWr.DataToLog(timeField.getText().toString(), dateField.getText().toString(), numericField.getText().toString(), textField.getText().toString());
 
 				Toast.makeText(this, "Saved!", Toast.LENGTH_LONG).show();
